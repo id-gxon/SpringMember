@@ -1,0 +1,190 @@
+SPRING.txt
+
+	SPRING <-> JAVA
+	
+	* Spring Framework: JAVA를 기반으로 만들어져 있는 형태(자바 오픈소스 프레임워크 / 경량 프레임워크 / 경량 컨테이너)
+	
+		Frame(뼈대) + work(작업) -> 어떤 대상을 구성하는 틀(구조)
+		-> '밀키트' 개념과 유사
+		
+		->> 소프트웨어적 관점: 어떤 기능이나 클래스, 인터페이스 등을 미리 만들어놓은 반제품
+		
+		편리성, 일정 수준 이상의 결과 보장
+		
+	* 스프링의 주요 개념
+		- EJB보다 가볍고, 사용하기 쉬운 경량 프레임워크
+		- 제어의 역행(IoC, Inversion Of Control) 기술을 사용하여 애플리케이션 간의 느슨한 결합(loosely coupled)을 제어
+		- 의존성 주입(DI, Dependency Injection) 기능을 지원
+		- 관점 지향 프로그래밍(AOP, Aspect-Oriented Programming)을 제공(자원 관리)
+		- 영속성(Persistence) 관련 다양한 서비스 지원
+		- 다양한 라이브러리 지원
+		- POJO(Plain Old Java Object)기반의 프로젝트 구성
+	
+	* 스프링의 주요 기능
+		- Spring Core: 다른 기능과 설정 값을 분리하기 위한 IoC를 제공
+		- Spring Context: 스프링 기본 기능, 애플리케이션에서 각 기능을 객체에 연결
+		- Spring DAO: JDBC 기능을 편리하게 사용
+		- Spring ORM: 하이버네이트 / 마이바티스 등의 프레임워크 연동
+		- Spring AOP: 관점 지향 프로그래밍 제공(로깅, 보안, 트렌젝션 등)
+		- Spring Web: 웹 애플리케이션에 필요한 기능을 제공
+		- Spring WebMVC: 스프링 MVC 구조를 생성
+	
+	* Spring MVC Project
+		- Spring Starter Project
+			+ Spring Boot Project 생성
+			+ 별도의 설정이 필요없음
+			+ WAS없이 실행 가능(서버 내장) -> 서비스 로딩 시간이 짧음
+			
+			- 기존의 시스템과 다른 형태
+			- JSP 사용이 어려움(HTML 사용 - 타임리프)
+			- 모든 버전의 스프링, 라이브러리 사용 불가능
+			
+		
+		- Spring Legacy Project
+			+ Spring Framework Project 생성
+			+ 아직까지 실무에서 많이 사용
+			+ 기존의 서비스를 이해하기 쉬움 / 다양한 자료 검색 가능
+			+ 모든 버전의 스프링, 라이브러리 사용 가능
+			
+			- 초반 세팅이 어려움
+			- 별도의 WAS가 필요 -> 서비스 로딩 시간이 길다(리소스 사용이 많다).
+	
+	* Maven(빌드 도구): 프로젝트를 실행할 때 필요한 라이브러리(jar)를 자동으로 구성해주는 도구
+	
+		아래 설정을 pom.xml에 추가
+		<!-- https://mvnrepository.com/artifact/com.mysql/mysql-connector-j -->
+		<dependency>
+		    <groupId>com.mysql</groupId>
+		    <artifactId>mysql-connector-j</artifactId>
+		    <version>8.0.33</version>
+		</dependency>
+		
+		아래 경로에 실제 파일을 추가
+		C:\Users\ITWILL\.m2\repository\com\mysql\mysql-connector-j
+		
+		** Maven 갱신
+		프로젝트 이름 우클릭 -> Maven 메뉴 -> Update Project 메뉴 -> OK
+	
+	JSP - MVC
+	요청 -> Controller -> Model(DAO) -> DB
+				|
+				View
+				
+	Spring - MVC
+	요청 ->	Controller -> Service -> DAO -> MyBatis -> DB
+				|
+				View
+		|		1		|	2	|			3			|
+			
+	1. Presentation Layer: UI를 구성하는 요소(웹 / 모바일)
+	2. Business(Service) Layer: 서비스 계층, 고객의 요구사항을 구현
+	3. DataAccess(Persistence) Layer: DB와 데이터 처리를 위한 동작
+	
+	  DAO -> MyBatis -> DB
+			[	DAO(Spring) - MyBatis 연결
+				SqlSessionTemplate,
+				MyBatis	]
+	|			3			|
+
+	* MyBatis
+		- 개발자가 지정한 SQL, 저장 프로시저 그리고 몇 가지 고급 매핑을 지원하는 퍼시스턴스 프레임워크이다.
+		- JDBC로 처리하는 상당부분의 코드와 파라미터 설정 및 결과 매핑을 대신해준다.
+		- 데이터베이스 레코드에 원시타입과 Map 인터페이스 그리고 자바 POJO를 설정해서 매핑하기 위해 XML과 어노테이션을 사용할 수 있다.
+		
+		-> try catch finally, pstmt 객체, rs, 데이터 처리 생략
+		-> xml 코드를 사용해서 SQL 구문을 분리
+		-> Spring과의 연동이 자동화되어 있음
+		-> 동적 SQL 구문을 제공
+	
+	마이바티스 외부 연결 라이브러리(pom.xml)
+	<!-- https://mvnrepository.com/artifact/org.mybatis/mybatis -->
+	마이바티스 사용
+	
+	<!-- https://mvnrepository.com/artifact/org.mybatis/mybatis-spring -->
+	스프링과 마이바티스를 연결
+	
+	<!-- https://mvnrepository.com/artifact/org.springframework/spring-jdbc -->
+	스프링에서 JDBC 사용, DB 연결 처리
+	
+	<!-- https://mvnrepository.com/artifact/org.springframework/spring-test -->
+	스프링 JDBC 사용 테스트
+	
+	<!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
+	lombok
+	<!-- https://mvnrepository.com/artifact/org.bgee.log4jdbc-log4j2/log4jdbc-log4j2-jdbc4.1 -->
+	Log4Jdbc
+	
+
+	* Spring + MyBatis
+		
+		사용법
+		
+		1) XML 코드로 SQL 구문을 저장, DAO 객체를 사용하여 XML 코드 연결
+		
+			+ SQL 구문을 분리(구문 수정 / 유지 보수에 유리)
+			
+			- 개발 분량이 증가, 복잡성 증가
+		
+		
+		2) 어노테이션 + DAO 인터페이스를 사용한 SQL 구문 작성
+			
+			+ 별도의 DAO 객체 없이 실행
+			
+			- 매번 수정 시마다 컴파일
+			
+			
+		3) XML 코드 + (어노테이션 + DAO 인터페이스) 형태로 SQL 작성
+		
+			+ 단순한 SQL은 어노테이션, 복잡한 SQL은 XML 형태로 처리
+			
+			- 개발자의 역량 차이가 크다
+
+	* 사용 순서
+		- DB 준비(개발 준비)
+		- 테이블 생성 및 설정
+		- 도메인 객체 설계 및 클래스 작성
+		- DAO 인터페이스 생성
+		- 인터페이스에 실행할 기능을 정의
+		- XML Mapper 생성
+		- Mapper의 DTD 설정
+		- Mapper의 저장 경로(namespace) 설정
+		- SQL 구문 작성
+		- MyBatis에서 해당 Mapper를 사용하도록 연결
+		- DAO 객체 구현
+		- 해당 동작 호출(테스트 실행)
+
+	* log4j 로그 레벨 - 사용자가 지정한 레벨보다 높은 레벨의 로그만 출력
+	
+	FATAL	(6): 시스템 차원에서 심각한 문제가 발생하는 경우 사용 
+	
+	ERROR	(5): 서비스 실행 중에 문제가 발생하는 경우 사용
+	
+	WARN	(4): 시스템 오류의 원인이 될 수 있는 부분을 알려주는 메세지를 출력하는 경우 사용
+	
+	INFO	(3): 서비스의 상태 변경과 같은 실제 애플리케이션의 운영 정보를 출력하는 경우 사용
+	
+	DEBUG	(2): 개발할 때 디버깅하는 경우 사용
+	
+	TRACE	(1): DEBUG보다 상세한 로깅 정보
+
+	* Test <-> DAOImpl(DAO) <-> MyBatis(Mapper) <-> DB(MySql)
+	
+			SQL 구문 호출
+			=> ? 대신 #{데이터 이름}
+			데이터 전달
+			=> 객체(도메인) 단위 전달
+	
+	* Service 계층 / 비지니스 계층
+		- 클래스, 인터페이스를 사용해서 사용자의 요구사항을 구현
+		- 컨트롤러와 DAO 사이에 연결 다리(완충 장치)
+		- 외부 호출에 따른 영속 계층(DAO)의 종속적인 상황을 막아줌
+
+	* 회원관리 프로그램 - SpringMVC
+	
+		회원가입(정보 입력 / 정보 처리)
+		로그인(정보 입력 / 정보 처리)
+		메인 페이지(+로그아웃)
+		회원정보 조회
+		회원정보 수정(정보 입력 / 정보 처리)
+		회원정보 삭제(정보 입력 / 정보 처리)
+		회원목록 조회
